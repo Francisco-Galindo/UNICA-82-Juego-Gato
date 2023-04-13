@@ -1,30 +1,71 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import Celda from './components/Celda.vue'
+import { ref, reactive } from 'vue'
+
+const turno = ref('x');
+
+const tablero = reactive([]);
+const gridTemplateCols = ref('');
+
+const tam = 3;
+for (let i = 0; i < tam; i++) {
+  tablero.push(Array(tam).fill(''));
+}
+
+for (let i = 0; i < tam; i++) {
+  gridTemplateCols.value += 'auto ';
+}
+
+function llenarCelda(i, j) {
+  if (tablero[i][j] !== '') {
+    return;
+  }
+
+  tablero[i][j] = turno.value;
+  if (turno.value === 'x') {
+    turno.value = 'o';
+  } else {
+    turno.value = 'x';
+  }
+
+}
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+
+  <h2 v-if="turno === 'x'">Es turno de las X</h2>
+  <h2 v-else>Es turno de las Y</h2>
+
+  <div class="grid-container">
+
+    <template v-for="(row, i) in tablero">
+
+      <div v-for="(cell, j) in tablero[i]" class="cell-container">
+
+        <Celda
+          @click="llenarCelda(i, j)"
+          :i="i"
+          :j="j"
+          :estado="tablero[i][j]"
+          :turno="turno"/>
+      </div>
+
+    </template>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+
+.grid-container {
+  display: grid;
+  grid-template-columns: v-bind(gridTemplateCols);
+  border: 1px solid;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.cell-container {
+  width: 5em;
+  height: 5em;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+
 </style>
