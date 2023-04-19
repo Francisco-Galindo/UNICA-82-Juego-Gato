@@ -28,10 +28,13 @@ defineProps({
 .empty-cell, .filled-cell {
   height: 100%;
   width: 100%;
-  background-repeat: no-repeat;
-  background-size: fill;
-  background-position: center;
-  border: 1px solid;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+
+  background: #1F3641;
+  box-shadow: inset 0px -4px 0px #10212A;
+  border-radius: 15px;
+
 }
 
 .empty-cell:hover {
