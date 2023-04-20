@@ -11,8 +11,6 @@ for (let i = 0; i < 3; i++) {
   tablero.push(Array(3).fill(''));
 }
 
-console.log('asdf');
-
 function llenarCelda(i, j) {
   if (tablero[i][j] !== '') {
     return;
@@ -31,13 +29,26 @@ function llenarCelda(i, j) {
 <template>
 
 
-  <h2 v-if="turno === 'x'">Es turno de las X</h2>
-  <h2 v-else>Es turno de las O</h2>
-
   <div id="info-top" class="tablero-info">
-    <div></div>
-    <div id="turno">asdf</div>
-    <div></div>
+    <div class="logo-tablero-container">
+      <img src="/src/assets/images/logo.svg" alt="Logo Gato">
+    </div>
+    <div id="turno">
+
+      <div id="logo-turno">
+        <img v-if="turno === 'x'" src="/src/assets/images/icon-x.svg" alt="X">
+        <img v-else src="/src/assets/images/icon-o.svg" alt="O">
+      </div>
+
+      <div>
+        <div>Turno</div>
+      </div>
+    </div>
+    <div class="boton-reiniciar-container">
+      <button id="boton-reiniciar-tablero">
+        <img src="/src/assets/images/icon-restart.svg" alt="Logo Gato">
+      </button>
+    </div>
   </div>
 
   <div class="grid-container">
@@ -59,15 +70,52 @@ function llenarCelda(i, j) {
   </div>
 
   <div id="info-bottom" class="tablero-info">
-    <div class="boton azul"></div>
-    <div class="boton gris"></div>
-    <div class="boton amarillo"></div>
+    <div class="boton azul">
+      <div>
+        <div>X (YOU)</div>
+        <div><b>0</b></div>
+      </div>
+    </div>
+
+    <div class="boton gris">
+      <div>
+        <div>Ties</div>
+        <div><b>0</b></div>
+      </div>
+    </div>
+
+    <div class="boton amarillo">
+      <div>
+        <div>O (CPU)</div>
+        <div><b>0</b></div>
+      </div>
+    </div>
   </div>
 
 </template>
 
 <style scoped>
 
+.logo-tablero-container {
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.boton-reiniciar-container {
+  display: flex;
+  align-items: center;
+}
+
+#boton-reiniciar-tablero {
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  margin-left: auto;
+  background-color: #A8BFC9;
+  border: 0px;
+
+  box-shadow: inset 0px -4px 0px #6B8997;
+}
 
 .grid-container {
   display: grid;
@@ -79,8 +127,10 @@ function llenarCelda(i, j) {
 }
 
 .cell-container {
-  /*width: 5em;
-  height: 5em;*/
+  /*
+  width: 5em;
+  height: 5em;
+   */
 }
 
 .tablero-info {
@@ -94,17 +144,35 @@ function llenarCelda(i, j) {
 }
 
 #info-top {
-  height: 3rem;
-}
-
-#info-top {
   height: 4rem;
 }
 
+#info-bottom {
+  height: 5rem;
+}
+
 #turno {
+  display: flex;
   background: #1F3641;
   box-shadow: inset 0px -4px 0px #10212A;
   border-radius: 15px;
+}
+
+#logo-turno {
+  display: flex;
+  align-items: center;
+}
+
+#turno div {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+#logo-turno img{
+  height: 60%;
+  margin: auto;
 }
 
 </style>

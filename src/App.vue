@@ -10,7 +10,7 @@ import { ref, reactive } from 'vue'
 
   <div class="iconos">
 
-    <svg width="72" height="32" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M8.562 1.634 16 9.073l7.438-7.439a3 3 0 0 1 4.243 0l2.685 2.685a3 3 0 0 1 0 4.243L22.927 16l7.439 7.438a3 3 0 0 1 0 4.243l-2.685 2.685a3 3 0 0 1-4.243 0L16 22.927l-7.438 7.439a3 3 0 0 1-4.243 0L1.634 27.68a3 3 0 0 1 0-4.243L9.073 16 1.634 8.562a3 3 0 0 1 0-4.243L4.32 1.634a3 3 0 0 1 4.243 0Z" fill="#31C3BD"/><path d="M56.1 0c8.765 0 15.87 7.106 15.87 15.87 0 8.766-7.105 15.871-15.87 15.871-8.765 0-15.87-7.105-15.87-15.87C40.23 7.106 47.334 0 56.1 0Zm0 9.405a6.466 6.466 0 1 0 0 12.931 6.466 6.466 0 0 0 0-12.931Z" fill="#F2B137" fill-rule="nonzero"/></g></svg>
+    <img src="/src/assets/images/logo.svg" alt="Logo Gato">
 
   </div><br>
 
@@ -19,9 +19,13 @@ import { ref, reactive } from 'vue'
     <div class="barra"></div>
     <p>REMEMBER...</p>
 
-  </div><br>
-  <button class="boton amarillo"> NEW GAME (VS CPU)</button><br><br>
-  <button class="boton azul"> NEW GAME (VS PLAYER)</button>
+  </div>
+  <div class="boton-menu-container">
+    <button class="boton amarillo"> NEW GAME (VS CPU)</button>
+  </div>
+  <div class="boton-menu-container">
+    <button class="boton azul"> NEW GAME (VS PLAYER)</button>
+  </div>
   <Tablero/>
 
 </template>
@@ -30,24 +34,40 @@ import { ref, reactive } from 'vue'
 
 <style>
 
-.boton {
-  text-align: center;
-  height: 4rem;
+.boton-menu-container {
   width: 100%;
+  height: 4rem;
+  margin-top: 2rem;
+}
+
+.boton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  vertical-align: center;
+  width: 100%;
+  height: 100%;
   border-radius: 8px;
+}
+
+button:hover {
+  box-shadow: 4px 7px 20px 1px rgba(0, 0, 0, 0.75) !important;
 }
 
 .azul{
   background-color: #65E9E4;
+  color: #1A2A33;
 }
 
 .amarillo{
   background-color: #F2B137;
-
+  color: #1A2A33;
 }
 
 .gris {
   background-color: #A8BFC9;
+  color: #1A2A33;
 }
 
 .barra{
