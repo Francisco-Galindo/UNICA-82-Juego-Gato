@@ -1,22 +1,53 @@
 <script setup>
 
 import Celda from './Celda.vue'
+import Modal from './Modal.vue'
 import { ref, reactive } from 'vue'
 
+defineProps({
+  p1Mark: String,
+})
+
+
 const turno = ref('x');
+const tipoModal = ref('');
+const jugando = ref(true);
+const ganador = ref('');
 
-const tablero = reactive([]);
+const tablero = [];
 
-for (let i = 0; i < 3; i++) {
-  tablero.push(Array(3).fill(''));
+iniciarJuego();
+
+function iniciarJuego() {
+  while (tablero.length > 0) {
+    tablero.pop();
+  }
+
+  for (let i = 0; i < 3; i++) {
+    tablero.push(Array(3).fill(''));
+  }
+
+  turno.value = 'x';
+  ganador.value = '';
+  jugando.value = true;
 }
 
-function llenarCelda(i, j) {
-  if (tablero[i][j] !== '') {
+function llenarCelda(a, b) {
+  if (!jugando || tablero[a][b] !== '') {
     return;
   }
 
-  tablero[i][j] = turno.value;
+  tablero[a][b] = turno.value;
+
+  ganador.value = checarVictoria();
+
+  if (ganador.value) {
+    jugando.value = false;
+    turno.value = '';
+    tipoModal.value = ganador.value;
+    return;
+  }
+
   if (turno.value === 'x') {
     turno.value = 'o';
   } else {
@@ -24,6 +55,55 @@ function llenarCelda(i, j) {
   }
 
 }
+
+function checarVictoria() {
+  const valoresX = [];
+  const valoresO = [];
+
+  for (let i = 0; i < 3; i++) {
+    valoresX.push(filtrar(tablero[i], 'x'));
+    valoresO.push(filtrar(tablero[i], 'o'));
+  }
+
+  for (let i = 0; i < 3; i++) {
+    const col = tablero.map((x) => { return x[i]});
+    valoresX.push(filtrar(col, 'x'));
+    valoresO.push(filtrar(col, 'o'));
+  }
+
+  const diagPrin = tablero.map((e, i) => e[i]);
+  valoresX.push(filtrar(diagPrin, 'x'));
+  valoresO.push(filtrar(diagPrin, 'o'));
+  const diagSec = tablero.map((e, i) => e[2 - i]);
+  valoresX.push(filtrar(diagSec, 'x'));
+  valoresO.push(filtrar(diagSec, 'o'));
+
+  if (valoresX.indexOf(3) !== -1) {
+    return 'x';
+  } else if (valoresO.indexOf(3) !== -1) {
+    return 'o';
+  }
+
+  return null;
+}
+
+function filtrar(arr, mark) {
+  return arr.filter((x) => x === mark).length;
+}
+
+const aceptarModal = () => {
+  if (tipoModal.value === 'restart') {
+
+  }
+
+  iniciarJuego();
+  tipoModal.value = '';
+}
+
+const cerrarModal = () => {
+  tipoModal.value = '';
+}
+
 </script>
 
 <template>
@@ -36,8 +116,8 @@ function llenarCelda(i, j) {
     <div id="turno">
 
       <div id="logo-turno">
-        <img v-if="turno === 'x'" src="/src/assets/images/icon-x.svg" alt="X">
-        <img v-else src="/src/assets/images/icon-o.svg" alt="O">
+        <img v-show="turno === 'x' || ganador === 'x'" src="/src/assets/images/icon-x.svg" alt="X">
+        <img v-show="turno === 'o' || ganador === 'o'" src="/src/assets/images/icon-o.svg" alt="O">
       </div>
 
       <div>
@@ -45,7 +125,7 @@ function llenarCelda(i, j) {
       </div>
     </div>
     <div class="boton-reiniciar-container">
-      <button id="boton-reiniciar-tablero">
+      <button id="boton-reiniciar-tablero" @click="tipoModal = 'restart'">
         <img src="/src/assets/images/icon-restart.svg" alt="Logo Gato">
       </button>
     </div>
@@ -91,6 +171,13 @@ function llenarCelda(i, j) {
       </div>
     </div>
   </div>
+
+  <Modal v-if="tipoModal != ''"
+    @cerrar="() => cerrarModal()"
+    @aceptar="() => aceptarModal()"
+    :tipo-modal="tipoModal"
+    :ganador="ganador"/>
+
 
 </template>
 
@@ -174,5 +261,6 @@ function llenarCelda(i, j) {
   height: 60%;
   margin: auto;
 }
+
 
 </style>
