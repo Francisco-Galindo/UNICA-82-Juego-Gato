@@ -23,6 +23,7 @@ const numO = ref(0);
 const numTies = ref(0);
 
 let numMovimientos = 0;
+let cooldown = false;
 
 const tablero = [];
 
@@ -44,8 +45,12 @@ function iniciarJuego() {
   numMovimientos = 0;
 }
 
-function llenarCelda(a, b) {
+function llenarCelda(a, b, player = '') {
   if (!jugando || tablero[a][b] !== '') {
+    return;
+  }
+
+  if (cooldown && player !== 'cpu') {
     return;
   }
 
@@ -82,7 +87,11 @@ function llenarCelda(a, b) {
 
 
   if (cpu.value && turno.value !== p1Mark.value) {
-    setTimeout(cpuLlenar, 250)
+    cooldown = true;
+    setTimeout(() => {
+      cpuLlenar();
+      cooldown = false;
+    }, 1000)
   }
 
 }
@@ -145,7 +154,7 @@ function cpuLlenar() {
     b = getRandomInt(0, 3);
   } while (tablero[a][b] !== '');
 
-  llenarCelda(a, b);
+  llenarCelda(a, b, 'cpu');
 }
 
 function getRandomInt(min, max) {
