@@ -3,30 +3,35 @@
 import Tablero from './components/Tablero.vue'
 import { ref, reactive } from 'vue'
 
+const inMenu = ref(true);
+
 </script>
 <!--Parte del menú-->
 
 <template>
 
-  <div class="iconos">
+  <div v-if="inMenu">
+    <div class="iconos">
 
-    <img src="/src/assets/images/logo.svg" alt="Logo Gato">
+      <img src="/src/assets/images/logo.svg" alt="Logo Gato">
 
-  </div><br>
+    </div>
 
-  <div class="pick-player">
-    <h2>PICK PLAYER 1´S MARK</h2>
-    <div class="barra"></div>
-    <p>REMEMBER...</p>
+    <div class="pick-player">
+      <h2>PICK PLAYER 1´S MARK</h2>
+      <div class="barra"></div>
+      <p class="">REMEMBER...</p>
+    </div>
 
+    <div class="boton-menu-container">
+      <button @click="inMenu = false" class="boton amarillo"> NEW GAME (VS CPU)</button>
+    </div>
+    <div class="boton-menu-container">
+      <button @click="inMenu = false" class="boton azul"> NEW GAME (VS PLAYER)</button>
+    </div>
   </div>
-  <div class="boton-menu-container">
-    <button class="boton amarillo"> NEW GAME (VS CPU)</button>
-  </div>
-  <div class="boton-menu-container">
-    <button class="boton azul"> NEW GAME (VS PLAYER)</button>
-  </div>
-  <Tablero/>
+
+  <Tablero v-if="!inMenu" :p1-mark="'x'"/>
 
 </template>
 
@@ -76,13 +81,14 @@ button:hover {
 }
 
 .pick-player{
-  -webkit-box-shadow: 0px 9px 5px -4px rgba(0,54,65,1);
-  -moz-box-shadow: 0px 9px 5px -4px rgba(0,54,65,1);
-  box-shadow: 0px 9px 5px -4px rgba(0,54,65,1);
+  background: #1F3641;
+  box-shadow: inset 0px -8px 0px #10212A;
+  border-radius: 15px;
   padding: 10px 20px 40px;
   background-color: #1F3641;
   border-radius: 10px;
-  height: 120px;
+  height: 10rem;
+  margin-bottom: 2rem;
 }
 
 .pick-player h2{
@@ -97,8 +103,11 @@ button:hover {
 }
 
 .iconos{
+  display: flex;
+  justify-content: center;
   align-items: center;
   height: 50px;
+  margin: 2rem;
 }
 
 .menu{
