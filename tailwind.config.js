@@ -4,7 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
-  theme: {  
+  theme: {
      colors:{
     'blue' :{
       100: "#31C3BD",
