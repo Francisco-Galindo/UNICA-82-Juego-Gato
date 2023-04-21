@@ -37,23 +37,28 @@ const aceptar = () => {
           </div>
 
           <div :class="ganador === 'x' ? 'text-blue-100' : 'text-yellow-100'" class="winner">
-            <h1>Takes the round</h1>
+            <h2>Takes the round</h2>
           </div>
         </div>
-        <div v-else>
-            <h1>Restart game?</h1>
+        <div v-else-if="tipoModal === 'restart'">
+            <h2>Restart game?</h2>
+        </div>
+        <div v-else-if="tipoModal === 'tie'">
+            <h2>Round tied</h2>
         </div>
 
         <div class="modal-buttons">
           <button @click="cerrar"
             class="boton bg-gray-100 text-dark_blue-100">
 
-            <span>Quit</span>
+            <span v-if="tipoModal === 'restart'">No, cancel</span>
+            <span v-else>Quit</span>
           </button>
           <button @click="aceptar"
             class="boton bg-yellow-100 text-dark_blue-100">
 
-            <span>Next round</span>
+            <span v-if="tipoModal === 'restart'">Yes, restart</span>
+            <span v-else>Next round</span>
           </button>
         </div>
 
@@ -95,9 +100,11 @@ const aceptar = () => {
   gap: 1rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  align-items: center;
 }
 
 .modal-buttons button {
   width: fit-content;
 }
+
 </style>
