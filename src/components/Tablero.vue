@@ -11,8 +11,11 @@ const props = defineProps({
 
 const { p1Mark, cpu } = toRefs(props);
 
-console.log(cpu.value);
+const emit = defineEmits(['irMenu']);
 
+const event = () => {
+  emit('irMenu');
+}
 
 const turno = ref('x');
 const tipoModal = ref('');
@@ -140,7 +143,12 @@ const aceptarModal = () => {
 }
 
 const cerrarModal = () => {
+  const oldTipo = tipoModal.value;
   tipoModal.value = '';
+
+  if (oldTipo !== 'restart') {
+    event();
+  }
 }
 
 function cpuLlenar() {
@@ -170,7 +178,7 @@ function getRandomInt(min, max) {
 
 
   <div id="info-top" class="tablero-info">
-    <div class="logo-tablero-container">
+    <div @click="$emit('irMenu')" class="logo-tablero-container">
       <img src="/src/assets/images/logo.svg" alt="Logo Gato">
     </div>
     <div id="turno">
@@ -255,6 +263,10 @@ function getRandomInt(min, max) {
   text-align: left;
   display: flex;
   align-items: center;
+}
+
+.logo-tablero-container:hover {
+  cursor: pointer;
 }
 
 .boton-reiniciar-container {

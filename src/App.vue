@@ -16,6 +16,10 @@ function jugarCpu() {
   cpu.value = true;
 }
 
+function cerrarTablero() {
+  inMenu.value = true;
+}
+
 </script>
 <!--Parte del menú-->
 
@@ -42,7 +46,7 @@ function jugarCpu() {
     </div>
   </div>
 
-  <Tablero v-if="!inMenu" :p1-mark="'x'" :cpu="cpu"/>
+  <Tablero v-if="!inMenu" @irMenu="() => cerrarTablero()" :p1-mark="'x'" :cpu="cpu"/>
 
 </template>
 
