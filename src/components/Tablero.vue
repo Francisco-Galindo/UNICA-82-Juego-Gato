@@ -2,17 +2,24 @@
 
 import Celda from './Celda.vue'
 import Modal from './Modal.vue'
-import { ref, reactive } from 'vue'
+import { ref, reactive, toRefs } from 'vue'
 
-defineProps({
+const props = defineProps({
   p1Mark: String,
-})
+  cpu: Boolean,
+});
+
+const { p1Mark, cpu } = toRefs(props);
+
+console.log(cpu.value);
 
 
 const turno = ref('x');
 const tipoModal = ref('');
 const jugando = ref(true);
 const ganador = ref('');
+
+let numMovimientos = 0;
 
 const tablero = [];
 
@@ -27,9 +34,11 @@ function iniciarJuego() {
     tablero.push(Array(3).fill(''));
   }
 
+  tipoModal.value = '';
   turno.value = 'x';
   ganador.value = '';
   jugando.value = true;
+  numMovimientos = 0;
 }
 
 function llenarCelda(a, b) {
@@ -52,6 +61,18 @@ function llenarCelda(a, b) {
     turno.value = 'o';
   } else {
     turno.value = 'x';
+  }
+
+  numMovimientos++;
+  if (numMovimientos >= 9) {
+    jugando.value = false;
+    tipoModal.value = 'tie';
+    return;
+  }
+
+
+  if (cpu.value && turno.value !== p1Mark.value) {
+    setTimeout(cpuLlenar, 250)
   }
 
 }
@@ -97,12 +118,32 @@ const aceptarModal = () => {
   }
 
   iniciarJuego();
-  tipoModal.value = '';
 }
 
 const cerrarModal = () => {
   tipoModal.value = '';
 }
+
+function cpuLlenar() {
+  if (!cpu.value) {
+    return;
+  }
+
+  let a, b;
+  do {
+    a = getRandomInt(0, 3);
+    b = getRandomInt(0, 3);
+  } while (tablero[a][b] !== '');
+
+  llenarCelda(a, b);
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
 
 </script>
 

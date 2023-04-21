@@ -4,6 +4,17 @@ import Tablero from './components/Tablero.vue'
 import { ref, reactive } from 'vue'
 
 const inMenu = ref(true);
+const cpu = ref(true);
+
+function jugarJugador() {
+  inMenu.value = false;
+  cpu.value = false;
+}
+
+function jugarCpu() {
+  inMenu.value = false;
+  cpu.value = true;
+}
 
 </script>
 <!--Parte del menú-->
@@ -24,14 +35,14 @@ const inMenu = ref(true);
     </div>
 
     <div class="boton-menu-container">
-      <button @click="inMenu = false" class="boton amarillo"> NEW GAME (VS CPU)</button>
+      <button @click="jugarCpu()" class="boton amarillo"> NEW GAME (VS CPU)</button>
     </div>
     <div class="boton-menu-container">
-      <button @click="inMenu = false" class="boton azul"> NEW GAME (VS PLAYER)</button>
+      <button @click="jugarJugador()" class="boton azul"> NEW GAME (VS PLAYER)</button>
     </div>
   </div>
 
-  <Tablero v-if="!inMenu" :p1-mark="'x'"/>
+  <Tablero v-if="!inMenu" :p1-mark="'x'" :cpu="cpu"/>
 
 </template>
 

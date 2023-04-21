@@ -24,7 +24,7 @@ const aceptar = () => {
     <div id="modal-container">
       <div class="bg-dark_blue-100" id="modal">
 
-        <div v-if="ganador !== ''">
+        <div v-if="tipoModal !== 'tie' && ganador !== ''">
           <p class="font-bold">You Won!</p>
         </div>
 
