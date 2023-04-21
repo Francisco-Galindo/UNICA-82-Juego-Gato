@@ -29,7 +29,7 @@ function jugarCpu() {
     </div>
 
     <div class="pick-player">
-      <h2>PICK PLAYER 1´S MARK</h2>
+      <p>PICK PLAYER 1´S MARK</p>
       <div class="barra"></div>
       <p class="">REMEMBER...</p>
     </div>
@@ -118,7 +118,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   height: 50px;
-  margin: 2rem;
+  margin-bottom: 2rem;
 }
 
 .menu{

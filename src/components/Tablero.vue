@@ -299,8 +299,7 @@ function getRandomInt(min, max) {
 }
 
 #logo-turno img{
-  height: 60%;
-  margin: auto;
+  height: 40%;
 }
 
 
