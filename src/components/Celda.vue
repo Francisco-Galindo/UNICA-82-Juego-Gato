@@ -12,14 +12,11 @@ defineProps({
 
 <template>
 
-  <div class="filled-cell x-filled" v-if="estado === 'x'">
-  </div>
-  <div class="filled-cell o-filled" v-else-if="estado === 'o'">
-  </div>
-  <div class="empty-cell x-outline" v-else-if="turno === 'x'">
-  </div>
-  <div class="empty-cell o-outline" v-else-if="turno === 'o'">
-  </div>
+  <div class="filled-cell x-filled" v-if="estado === 'x'"></div>
+  <div class="filled-cell o-filled" v-else-if="estado === 'o'"></div>
+  <div class="empty-cell x-outline" v-else-if="turno === 'x'"></div>
+  <div class="empty-cell o-outline" v-else-if="turno === 'o'"></div>
+  <div class="empty-cell disabled" v-else-if="turno === ''"></div>
 
 </template>
 
@@ -37,16 +34,21 @@ defineProps({
 
 }
 
-.empty-cell:hover {
+.empty-cell:hover, .empty-cell:active {
   box-shadow: 4px 7px 20px 1px rgba(0, 0, 0, 0.75);
   cursor: pointer;
 }
 
-.x-outline:hover {
+.disabled:hover, .disabled:active {
+  cursor: auto;
+  box-shadow: inset 0px -4px 0px #10212A;
+}
+
+.x-outline:hover, .x-outline:active {
   background-image: url('/src/assets/images/icon-x-outline.svg');
 }
 
-.o-outline:hover {
+.o-outline:hover, .o-outline:active {
   background-image: url('/src/assets/images/icon-o-outline.svg');
 }
 
