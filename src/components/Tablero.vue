@@ -18,6 +18,9 @@ const turno = ref('x');
 const tipoModal = ref('');
 const jugando = ref(true);
 const ganador = ref('');
+const numX = ref(0);
+const numO = ref(0);
+const numTies = ref(0);
 
 let numMovimientos = 0;
 
@@ -54,6 +57,12 @@ function llenarCelda(a, b) {
     jugando.value = false;
     turno.value = '';
     tipoModal.value = ganador.value;
+
+    if (ganador.value === 'x') {
+      numX.value++;
+    } else {
+      numO.value++;
+    }
     return;
   }
 
@@ -67,6 +76,7 @@ function llenarCelda(a, b) {
   if (numMovimientos >= 9) {
     jugando.value = false;
     tipoModal.value = 'tie';
+    numTies.value++;
     return;
   }
 
@@ -162,7 +172,7 @@ function getRandomInt(min, max) {
       </div>
 
       <div>
-        <div>Turno</div>
+        <div>Turn</div>
       </div>
     </div>
     <div class="boton-reiniciar-container">
@@ -193,22 +203,30 @@ function getRandomInt(min, max) {
   <div id="info-bottom" class="tablero-info">
     <div class="boton azul">
       <div>
-        <div>X (YOU)</div>
-        <div><b>0</b></div>
+        <div v-if="cpu && p1Mark === 'x'">X (YOU)</div>
+        <div v-else-if="cpu">X (CPU)</div>
+        <div v-else-if="p1Mark === 'x'">X (P1)</div>
+        <div v-else>X (P2)</div>
+
+        <div><b>{{ numX }}</b></div>
       </div>
     </div>
 
     <div class="boton gris">
       <div>
         <div>Ties</div>
-        <div><b>0</b></div>
+        <div><b>{{ numTies }}</b></div>
       </div>
     </div>
 
     <div class="boton amarillo">
       <div>
-        <div>O (CPU)</div>
-        <div><b>0</b></div>
+        <div v-if="cpu && p1Mark === 'o'">O (YOU)</div>
+        <div v-else-if="cpu">O (CPU)</div>
+        <div v-else-if="p1Mark === 'o'">O (P1)</div>
+        <div v-else>O (P2)</div>
+
+        <div><b>{{ numO }}</b></div>
       </div>
     </div>
   </div>
