@@ -33,18 +33,30 @@ function cerrarTablero() {
     </div>
 
     <div class="pick-player">
-      <p>PICK PLAYER 1´S MARK</p>
-      <div class="barra"></div>
-      <p class="">REMEMBER...</p>
-    </div>
-
+      <h2>PICK PLAYER 1´S MARK</h2>
+      <div class="pick-side">
+        <div class="bar">
+            <div>
+              <svg width="64" height="64" xmlns="http://www.w3.org/2000/svg"><path d="M15.002 1.147 32 18.145 48.998 1.147a3 3 0 0 1 4.243 0l9.612 9.612a3 3 0 0 1 0 4.243L45.855 32l16.998 16.998a3 3 0 0 1 0 4.243l-9.612 9.612a3 3 0 0 1-4.243 0L32 45.855 15.002 62.853a3 3 0 0 1-4.243 0L1.147 53.24a3 3 0 0 1 0-4.243L18.145 32 1.147 15.002a3 3 0 0 1 0-4.243l9.612-9.612a3 3 0 0 1 4.243 0Z" fill="#DBE8ED" fill-rule="evenodd"/></svg>
+            </div>
+            <div>
+              <svg width="64" height="64" xmlns="http://www.w3.org/2000/svg"><path d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32 0 14.327 14.327 0 32 0Zm0 18.963c-7.2 0-13.037 5.837-13.037 13.037 0 7.2 5.837 13.037 13.037 13.037 7.2 0 13.037-5.837 13.037-13.037 0-7.2-5.837-13.037-13.037-13.037Z" fill="#DBE8ED"/></svg>
+            </div>
+           </div>
+      </div>
+      <p>REMEMBER...</p>
+    </div><br>
     <div class="boton-menu-container">
       <button @click="jugarCpu()" class="boton amarillo"> NEW GAME (VS CPU)</button>
-    </div>
+    </div><br>
     <div class="boton-menu-container">
       <button @click="jugarJugador()" class="boton azul"> NEW GAME (VS PLAYER)</button>
     </div>
+
   </div>
+
+  
+
 
   <Tablero v-if="!inMenu" @irMenu="() => cerrarTablero()" :p1-mark="'x'" :cpu="cpu"/>
 
@@ -54,56 +66,62 @@ function cerrarTablero() {
 
 <style>
 
-.boton-menu-container {
-  width: 100%;
-  height: 4rem;
-  margin-top: 2rem;
-}
-
 .boton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 15px 25px;
+  font-size: 24px;
   text-align: center;
-  vertical-align: center;
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
+  border: none;
+  border-radius: 15px;
+  width: 545px;
+
+ 
 }
 
-button:hover {
-  box-shadow: 4px 7px 20px 1px rgba(0, 0, 0, 0.75) !important;
+.boton:active {
+ 
+  transform: translateY(4px);
+  box-shadow: 0 5px rgb(73, 72, 72);
 }
+
 
 .azul{
+
   background-color: #65E9E4;
-  color: #1A2A33;
+  box-shadow: 0 8px #23b9b4;
 }
 
 .amarillo{
   background-color: #F2B137;
-  color: #1A2A33;
+  box-shadow: 0 8px #d4992c;
+
 }
 
 .gris {
   background-color: #A8BFC9;
-  color: #1A2A33;
+  box-shadow: 0 8px #63747c
 }
 
-.barra{
+.pick-side{
   background-color: #1A2A33;
-  height: 5rem;
+  height: 6rem;
+  align-items: center;
+}
+
+.bar{
+ 
+  display: flex;
+  
 }
 
 .pick-player{
-  background: #1F3641;
-  box-shadow: inset 0px -8px 0px #10212A;
-  border-radius: 15px;
-  padding: 10px 20px 40px;
+  -webkit-box-shadow: 0px 9px 5px -4px rgba(0,54,65,1);
+  -moz-box-shadow: 0px 9px 5px -4px rgba(0,54,65,1);
+  box-shadow: 0px 9px 5px -4px rgba(0,54,65,1);
+  padding: 10px 20px 60px;
   background-color: #1F3641;
   border-radius: 10px;
-  height: 10rem;
-  margin-bottom: 2rem;
+  height: 120px;
+  width: 505px;
 }
 
 .pick-player h2{
@@ -125,8 +143,7 @@ button:hover {
   margin-bottom: 2rem;
 }
 
-.menu{
-  background-color: #1F3641;
-}
+
+
 
 </style>
